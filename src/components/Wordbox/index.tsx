@@ -15,8 +15,9 @@ const Wordbox = ({ word, onFinish }: IWordboxProp) => {
       onFinish();
     } else if (e.key === lettersLeft[0]) {
       setLetersLeft((prev) => prev.slice(1));
+      setMistake(false)
     } else {
-      setMistake(false);
+      setMistake(true);
     }
   };
 
