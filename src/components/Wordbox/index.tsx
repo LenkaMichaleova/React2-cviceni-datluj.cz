@@ -5,9 +5,10 @@ interface IWordboxProp {
   word: string;
   onFinish: () => void;
   active: boolean;
+  onMistake: () => void;
 }
 
-const Wordbox = ({ word, onFinish, active }: IWordboxProp) => {
+const Wordbox = ({ word, onFinish, active, onMistake }: IWordboxProp) => {
   const [lettersLeft, setLetersLeft] = useState<string>(word);
   const [mistake, setMistake] = useState(false);
 
@@ -20,6 +21,7 @@ const Wordbox = ({ word, onFinish, active }: IWordboxProp) => {
         setMistake(false);
       } else {
         setMistake(true);
+        onMistake();
       }
     };
 
@@ -27,7 +29,7 @@ const Wordbox = ({ word, onFinish, active }: IWordboxProp) => {
     return () => {
       active && document.removeEventListener("keyup", handleKeyUp);
     };
-  }, [lettersLeft, active, onFinish]);
+  }, [lettersLeft, active, onFinish, onMistake]);
 
   return (
     <div className={mistake ? "wordbox wordbox--mistake" : "wordbox"}>
